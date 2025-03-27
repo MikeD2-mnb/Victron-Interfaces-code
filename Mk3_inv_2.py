@@ -4,7 +4,9 @@ from serial.tools import list_ports
 from serial.tools.list_ports import comports
 from struct import *
 from pymodbus.client.sync import ModbusTcpClient as ModbusClient
-
+## This program assumes Modbus server is running on local host, port 5002 is used to avoid complications wiht root access for low port no's. 
+## The modbus server in my system is run by the BMS program, and uses the modbus server registers to transfer data from this and the VE direct 
+## program to the main BMS program for display in the BMS program's web server.
 client = ModbusClient('localhost', port=5002)
 client.connect()
 
@@ -396,6 +398,6 @@ while True:
             #f= Mk2_rdRamVar_1(a,0x86)
            # Mk2_wrt_RamVar(0x85,0,0)
            # Mk2_wrt_RamVar(0x84,1,0)
-            Mk2_wrt_RamVar(0x83,0,0)
+            Mk2_wrt_RamVar(0x83,0,0)  # Inverter power set in 2nd byte of this list. +ve is export to grid, -veimport from grid units: W
            #Mk2_wrt_RamVar(0x87,100,0)
             time.sleep(0.5)
